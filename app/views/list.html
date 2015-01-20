@@ -1,0 +1,27 @@
+
+<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon">过滤</div>
+      <input class="form-control" ng-model="q" type="text" placeholder="过滤内容">
+    </div>
+  </div>
+</form>
+<hr/>
+
+<div class="row" ng-repeat="gdzc in gdzcList | filter:q track by $index">
+    <div class="col-xs-2 pull-left" >
+      <i class="fa fa-cube fa-4x" ></i>
+    </div>
+    <div class="col-xs-10">
+      <div>
+        <a href="{{gdzc.Id}}">
+          {{gdzc[Predicates.Name][0]}}
+        </a>
+        </div>
+      <div>编号：201111003432</div>
+      <div>购置日期：2012-11-21</div>
+      <div>状态：使用中</div>
+      <hr/>
+    </div>
+</div>

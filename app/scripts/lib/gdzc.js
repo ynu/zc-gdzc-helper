@@ -15,6 +15,7 @@ function nagu_gdzc_predicates_define(){
     AppId: 'bdbcc3d2-2950-4526-b73e-c87a6c21acc0',
     ReadKeys: ['960af7a3-0d5c-477b-a8d7-e4b1ae252d2e'],
     Class: 'e01085bf-a4a2-4ada-b39c-9519c3f25fe4',
+    Name: Nagu.Rdfs.Label,
     PicUrl: '3d512374-f87d-46f9-bad6-2d81fdbbe440', // 相关图片
     Bh: '9080c5f4-2eb7-444b-8c5e-eb81b68b7ea9', // 编号
     Date: '5f61c37e-8cfb-447d-84ee-ab81c35aca3d', // 购置日期
@@ -23,7 +24,7 @@ function nagu_gdzc_predicates_define(){
     Location: '9046c121-43e8-4573-a031-680e78170184', // 存放地点
     Glr: '9fdade80-c4a2-4e8c-9d05-a47bf608ae0f', // 管理人
     Lyr: '2d502a3e-c30d-4392-aff7-8c2301c8df55', // 领用人，SW node： http://sw.ynu.edu.cn/zc/predicates#Lyr
-    BelongTo: 'eff3baf0-a911-456a-9b95-f7c01f6cb6af', // 所属部门
+    BelongTo: '1ea23591-6d15-4dfb-b32d-3314f60a0a0b', // 所属部门
     Guige: 'ba5b04a7-47a2-4624-9708-4b0c79593390', // 规格
     Xinghao: 'b7e744b4-c69c-423a-967c-6710690693a9', // 型号
     Price: '87de68c5-e7b4-453b-9305-eb9834696961', //单价
@@ -111,15 +112,17 @@ function nagu_gdzc_functions_define(predicates){
      * @returns {{}}
      */
     fromFss: function(fss){
-      var gdzc = {};
+      var gdzc = {
+        Id: fss[0].Subject.ConceptId
+      };
       $.each(fss, function (i, fs) {                        // 循环读取每条语句
-        if(!gzdc[fs.Predicate]){                             // 初始化字段
-          gdzc[fs.Predicate] = [];
+        if(!gdzc[fs.Predicate.ConceptId]){                             // 初始化字段
+          gdzc[fs.Predicate.ConceptId] = [];
         }
         if(fs.Object.Value){                                 // 如果是文本类型，直接读取值
-          gdzc[fs.Predicate].push(fs.Object.Value)
+          gdzc[fs.Predicate.ConceptId].push(fs.Object.Value)
         } else {
-          gdzc[fs.Predicate].push(fs.Object);                 // Concept类型
+          gdzc[fs.Predicate.ConceptId].push(fs.Object);                 // Concept类型
         }
       });
       return gdzc;
