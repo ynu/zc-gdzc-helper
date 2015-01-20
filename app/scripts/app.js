@@ -15,8 +15,12 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'angularFileUpload'
   ])
+  .config(function($httpProvider){
+    $httpProvider.defaults.withCredentials = true;
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -26,6 +30,18 @@ angular
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when('/wxtest', {
+        templateUrl: 'views/wxtest.html',
+        controller: 'WxtestCtrl'
+      })
+      .when('/uploadtest', {
+        templateUrl: 'views/uploadtest.html',
+        controller: 'UploadtestCtrl'
+      })
+      .when('/list', {
+        templateUrl: 'views/list.html',
+        controller: 'ListCtrl'
       })
       .otherwise({
         redirectTo: '/'
